@@ -147,7 +147,7 @@ public class Explosions implements Listener {
                     }
                     break;
             }
-        } catch (NullPointerException exception) {
+        } catch (NullPointerException | IllegalArgumentException exception) {
             Bukkit.getServer().getLogger().info("An explosion occurred in " + location.getWorld() + " @:" + location.getX() + "," + location.getY() + "," + location.getZ() + "! Config this in the menu to disable this message! /explosions");
         }
     }
