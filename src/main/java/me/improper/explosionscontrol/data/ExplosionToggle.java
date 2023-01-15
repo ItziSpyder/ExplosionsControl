@@ -57,6 +57,12 @@ public class ExplosionToggle {
         EXPLOSIONMENU = menu;
     }
 
+    /**
+     * Open the toggle configuration menu for a player!
+     *
+     * @param player Player
+     * @param world World
+     */
     public static void openToggleMenu(Player player, World world) {
         Inventory menu = Bukkit.createInventory(null,54, ExplosionsControl.STARTER + "eEditing " + world.getName());
         ExplosionConfiguration configuration = new ExplosionConfiguration(world);

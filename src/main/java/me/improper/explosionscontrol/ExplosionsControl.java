@@ -13,11 +13,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class ExplosionsControl extends JavaPlugin {
 
-    public static String STARTER = Config.getPluginPrefix();
+    public static String STARTER;
 
     @Override
     public void onEnable() {
         // Plugin startup logic
+        STARTER = Config.getPluginPrefix();
         Bukkit.broadcastMessage(STARTER + "aExplosionsControls has loaded!");
         ExplosionConfigFile.setup();
         ExplosionToggle.setup();
