@@ -3,10 +3,7 @@ package me.improper.explosionscontrol.events;
 import me.improper.explosionscontrol.data.ExplosionConfiguration;
 import me.improper.explosionscontrol.data.ExplosionMode;
 import me.improper.explosionscontrol.other.ServerSound;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Sound;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.FallingBlock;
@@ -26,14 +23,13 @@ public class OnExplode implements Listener {
         Location loc = e.getLocation();
         World world = loc.getWorld();
         ExplosionConfiguration configuration = new ExplosionConfiguration(world);
-        ServerSound explosion = new ServerSound(e.getLocation(),Sound.ENTITY_GENERIC_EXPLODE,10,0.7F);
 
         switch (entity.getType()) {
             case PRIMED_TNT -> {
                 switch (configuration.getAllowTnt()) {
                     case DISABLED -> {
                         e.setCancelled(true);
-                        explosion.playWithin(5000);
+                        fakeExplode(loc);
                     }
                     case NONE -> {
                         e.setCancelled(true);
@@ -47,7 +43,7 @@ public class OnExplode implements Listener {
                 switch (configuration.getAllowFireball()) {
                     case DISABLED -> {
                         e.setCancelled(true);
-                        explosion.playWithin(5000);
+                        fakeExplode(loc);
                     }
                     case NONE -> {
                         e.setCancelled(true);
@@ -61,7 +57,7 @@ public class OnExplode implements Listener {
                 switch (configuration.getAllowCreeper()) {
                     case DISABLED -> {
                         e.setCancelled(true);
-                        explosion.playWithin(5000);
+                        fakeExplode(loc);
                     }
                     case NONE -> {
                         e.setCancelled(true);
@@ -75,7 +71,7 @@ public class OnExplode implements Listener {
                 switch (configuration.getAllowCrystal()) {
                     case DISABLED -> {
                         e.setCancelled(true);
-                        explosion.playWithin(5000);
+                        fakeExplode(loc);
                     }
                     case NONE -> {
                         e.setCancelled(true);
@@ -89,7 +85,7 @@ public class OnExplode implements Listener {
                 switch (configuration.getAllowMinecart()) {
                     case DISABLED -> {
                         e.setCancelled(true);
-                        explosion.playWithin(5000);
+                        fakeExplode(loc);
                     }
                     case NONE -> {
                         e.setCancelled(true);
@@ -103,7 +99,7 @@ public class OnExplode implements Listener {
                 switch (configuration.getAllowWither()) {
                     case DISABLED -> {
                         e.setCancelled(true);
-                        explosion.playWithin(5000);
+                        fakeExplode(loc);
                     }
                     case NONE -> {
                         e.setCancelled(true);
@@ -122,12 +118,11 @@ public class OnExplode implements Listener {
         Location loc = block.getLocation();
         World world = loc.getWorld();
         ExplosionConfiguration configuration = new ExplosionConfiguration(world);
-        ServerSound explosion = new ServerSound(block.getLocation(),Sound.ENTITY_GENERIC_EXPLODE,10,0.7F);
 
         switch (configuration.getAllowBlock()) {
             case DISABLED -> {
                 e.setCancelled(true);
-                explosion.playWithin(5000);
+                fakeExplode(loc);
             }
             case NONE -> {
                 e.setCancelled(true);
@@ -204,5 +199,18 @@ public class OnExplode implements Listener {
         FallingBlock fb = origin.getWorld().spawnFallingBlock(block.getLocation(),block.getBlockData());
         fb.setVelocity(vector);
         block.setType(Material.AIR);
+    }
+
+    /**
+     * Plays a sound and displays the explosion particles at the provided world location.
+     *
+     * @param location Location
+     */
+    public static void fakeExplode(Location location) {
+        ServerSound explosion = new ServerSound(location,Sound.ENTITY_GENERIC_EXPLODE,10,0.7F);
+        explosion.playWithin(5000);
+        location.getWorld().spawnParticle(Particle.EXPLOSION_LARGE,location,1,1,1,1,0);
+        location.getWorld().spawnParticle(Particle.EXPLOSION_HUGE,location,1,1,1,1,0);
+        location.getWorld().spawnParticle(Particle.EXPLOSION_NORMAL,location,5,1,1,1,0);
     }
 }

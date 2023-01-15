@@ -14,6 +14,16 @@ public class ServerSound {
     private float volume;
     private float pitch;
 
+    /**
+     * Constructs a new sound, this aims to add more methods to
+     * the Bukkit APIs Sound class, as they don't have many
+     * methods to use.
+     *
+     * @param location Location
+     * @param sound Sound
+     * @param volume float
+     * @param pitch float
+     */
     public ServerSound(Location location, Sound sound, float volume, float pitch) {
         this.location = location;
         this.sound = sound;
@@ -22,14 +32,29 @@ public class ServerSound {
     }
 
 
+    /**
+     * Plays a sound to a player but at the store location
+     *
+     * @param player Player
+     */
     public void play(Player player) {
         player.playSound(this.location,this.sound,this.volume,this.pitch);
     }
 
+    /**
+     * Plays a sound to a player but at the player's location
+     *
+     * @param player Player
+     */
     public void playAt(Player player) {
         player.playSound(player.getLocation(),this.sound,this.volume,this.pitch);
     }
 
+    /**
+     * Plays the sound to all players within a distance, but at the stored location.
+     *
+     * @param distance double
+     */
     public void playWithin(double distance) {
         for (Player p : Bukkit.getOnlinePlayers()) {
             if (p != null && p.getWorld() == this.location.getWorld() && p.getLocation().distanceSquared(this.location) < distance) {
@@ -38,6 +63,11 @@ public class ServerSound {
         }
     }
 
+    /**
+     * Plays the sound to all players within a distance, but at the players' location.
+     *
+     * @param distance double
+     */
     public void playWithinAt(double distance) {
         for (Player p : Bukkit.getOnlinePlayers()) {
             if (p != null && p.getWorld() == this.location.getWorld() && p.getLocation().distanceSquared(this.location) < distance) {
@@ -46,14 +76,28 @@ public class ServerSound {
         }
     }
 
+
+    /**
+     * Plays the sound to all players on the server, but at the stored location.
+     */
     public void playAll() {
         for (Player p : Bukkit.getOnlinePlayers()) p.playSound(this.location,this.sound,this.volume,this.pitch);
     }
 
+    /**
+     * Plays the sound to all players on the server, but at the players' location.
+     */
     public void playAllAt() {
         for (Player p : Bukkit.getOnlinePlayers()) p.playSound(p.getLocation(),this.sound,this.volume,this.pitch);
     }
 
+    /**
+     * Repeats a sound to a player, but at the stored location.
+     *
+     * @param player Player
+     * @param times int
+     * @param tickDelay int
+     */
     public void repeat(Player player, int times, int tickDelay) {
         new BukkitRunnable() {
             int i = 0;
@@ -69,6 +113,13 @@ public class ServerSound {
         }.runTaskTimer(ExplosionsControl.getInstance(),0,tickDelay);
     }
 
+    /**
+     * Repeats a sound to a player, but at the player's location.
+     *
+     * @param player Player
+     * @param times int
+     * @param tickDelay int
+     */
     public void repeatAt(Player player, int times, int tickDelay) {
         new BukkitRunnable() {
             int i = 0;
@@ -84,6 +135,12 @@ public class ServerSound {
         }.runTaskTimer(ExplosionsControl.getInstance(),0,tickDelay);
     }
 
+    /**
+     * Repeats a sound to all players on the server, but at the stored location.
+     *
+     * @param times int
+     * @param tickDelay int
+     */
     public void repeatAll(int times, int tickDelay) {
         new BukkitRunnable() {
             int i = 0;
@@ -99,6 +156,12 @@ public class ServerSound {
         }.runTaskTimer(ExplosionsControl.getInstance(),0,tickDelay);
     }
 
+    /**
+     * Repeats a sound to all players on the server, but at the players' location.
+     *
+     * @param times int
+     * @param tickDelay int
+     */
     public void repeatAllAt(int times, int tickDelay) {
         new BukkitRunnable() {
             int i = 0;
@@ -114,6 +177,13 @@ public class ServerSound {
         }.runTaskTimer(ExplosionsControl.getInstance(),0,tickDelay);
     }
 
+    /**
+     * Repeats a sound to all players within a radius, but at the stored location.
+     *
+     * @param radius double
+     * @param times int
+     * @param tickDelay int
+     */
     public void repeatAll(double radius,int times, int tickDelay) {
         new BukkitRunnable() {
             int i = 0;
@@ -129,6 +199,13 @@ public class ServerSound {
         }.runTaskTimer(ExplosionsControl.getInstance(),0,tickDelay);
     }
 
+    /**
+     * Repeats a sound to all players within a radius, but at the players' location.
+     *
+     * @param distance double
+     * @param times int
+     * @param tickDelay int
+     */
     public void repeatAllAt(double distance, int times, int tickDelay) {
         new BukkitRunnable() {
             int i = 0;
