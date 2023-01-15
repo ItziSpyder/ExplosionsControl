@@ -1,0 +1,16 @@
+name: ExplosionsControl
+version: '3.0'
+main: me.improper.explosionscontrol.ExplosionsControl
+api-version: 1.17
+authors: [ ImproperIssues ]
+description: Manager server explosions with just a few simple clicks!
+website: github.com/ItziSpyder
+commands:
+  explosions:
+    description: Opens up the explosions toggle menu
+    usage: /explosions
+    permission: explosionscontrol.commands.explosions
+  loadworlds:
+    description: Loads in all the configuration files in case they didn't load
+    usage: /loadworlds
+    permission: explosionscontrol.commands.loadworlds
