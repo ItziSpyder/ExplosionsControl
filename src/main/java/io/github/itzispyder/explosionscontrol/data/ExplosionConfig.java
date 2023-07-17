@@ -134,11 +134,9 @@ public class ExplosionConfig {
     }
 
     public static ExplosionConfig load(World world) {
-        return load(getFileOf(world));
-    }
-
-    public static ExplosionConfig load(File file) {
-        ExplosionConfig defaultConfig = new ExplosionConfig(Bukkit.getWorlds().get(0));
+        world = world != null ? world : Bukkit.getWorlds().get(0);
+        File file = getFileOf(world);
+        ExplosionConfig defaultConfig = new ExplosionConfig(world);
 
         if (FileValidationUtils.validate(file)) {
             try {

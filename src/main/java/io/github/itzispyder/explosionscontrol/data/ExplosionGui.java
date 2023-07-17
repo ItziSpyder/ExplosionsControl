@@ -2,6 +2,7 @@ package io.github.itzispyder.explosionscontrol.data;
 
 import io.github.itzispyder.explosionscontrol.utils.ItemPresets;
 import io.github.itzispyder.explosionscontrol.utils.Text;
+import io.github.itzispyder.explosionscontrol.utils.Timer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -20,6 +21,7 @@ public class ExplosionGui {
     }
 
     public Inventory loadGui() {
+        Timer timer = Timer.start();
         String title = Text.color(starter + config.getWorld().getName());
         Inventory inv = Bukkit.createInventory(null, 54, title);
         ItemStack x = ItemPresets.GUI_BLANK;
@@ -63,6 +65,8 @@ public class ExplosionGui {
                 o,x,x,x,x,x,x,x,o,
                 f,f,f,f,f,f,f,f,f
         });
+
+        Timer.End end = timer.end();
 
         return inv;
     }

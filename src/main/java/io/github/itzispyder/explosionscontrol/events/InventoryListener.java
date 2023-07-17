@@ -37,7 +37,6 @@ public class InventoryListener implements Listener {
 
             if (world == null) {
                 p.closeInventory();
-                p.sendMessage("matching worlds: " + p.getWorld().getName().equals(name));
                 p.sendMessage(Text.ofAll("&cWorld &7\"" + name + "&7\" &cis not found!"));
                 return;
             }
