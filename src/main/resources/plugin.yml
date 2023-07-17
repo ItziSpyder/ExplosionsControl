@@ -5,3 +5,20 @@ api-version: 1.17
 authors: [ ImproperIssues ]
 description: Manager server explosions with just a few simple clicks!
 website: github.com/ItziSpyder
+permissions:
+  exc.commands.updateworlds:
+    description: Command access
+    default: op
+  exc.commands.configworlds:
+    description: Command access
+    default: op
+commands:
+  updateworlds:
+    description: Update all world explosion configs
+    usage: /updateworlds
+    permission: exc.commands.updateworlds
+  configworld:
+    description: Config world explosion configs
+    usage: /configworld <world>
+    permission: exc.commands.configworld
+
