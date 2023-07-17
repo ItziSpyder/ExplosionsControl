@@ -20,9 +20,7 @@ public class InventoryListener implements Listener {
         try {
             this.handleConfigGui(e);
         }
-        catch (Exception ignore) {
-            ignore.printStackTrace();
-        }
+        catch (Exception ignore) {}
     }
 
     private void handleConfigGui(InventoryClickEvent e) {

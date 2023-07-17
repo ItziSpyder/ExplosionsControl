@@ -4,6 +4,7 @@ import io.github.itzispyder.explosionscontrol.commands.BukkitCommand;
 import io.github.itzispyder.explosionscontrol.commands.commands.ConfigWorldCommand;
 import io.github.itzispyder.explosionscontrol.commands.commands.UpdateWorldsCommand;
 import io.github.itzispyder.explosionscontrol.data.ExplosionConfig;
+import io.github.itzispyder.explosionscontrol.events.ExplosionListener;
 import io.github.itzispyder.explosionscontrol.events.InventoryListener;
 import io.github.itzispyder.explosionscontrol.utils.Text;
 import org.bukkit.Bukkit;
@@ -34,6 +35,7 @@ public final class ExplosionsControl extends JavaPlugin {
     public void init() {
         // listeners
         pm.registerEvents(new InventoryListener(), this);
+        pm.registerEvents(new ExplosionListener(), this);
 
         // commands
         addCommand(new UpdateWorldsCommand());

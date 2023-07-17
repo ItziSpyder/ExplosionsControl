@@ -1,7 +1,7 @@
 name: ExplosionsControl
 version: '${version}'
 main: io.github.itzispyder.explosionscontrol.ExplosionsControl
-api-version: 1.17
+api-version: 1.19
 authors: [ ImproperIssues ]
 description: Manager server explosions with just a few simple clicks!
 website: github.com/ItziSpyder

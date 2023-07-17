@@ -20,6 +20,18 @@ public enum Mode {
         this.id = id;
     }
 
+    public boolean shouldCancel() {
+        return this == NONE || this == DISABLED;
+    }
+
+    public boolean isDynamic() {
+        return this == DYNAMIC;
+    }
+
+    public boolean isNormal() {
+        return this == ENABLED;
+    }
+
     public Mode next() {
         int i = id + 1;
         i = i >= values().length ? 0 : i;
