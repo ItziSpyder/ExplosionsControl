@@ -13,6 +13,8 @@ import org.bukkit.entity.FallingBlock;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockExplodeEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.util.Vector;
 
@@ -34,6 +36,45 @@ public class ExplosionListener implements Listener {
             this.handleBlockExplosion(e);
         }
         catch (Exception ignore) {}
+    }
+
+    @EventHandler
+    private void onEntityDamageByEntity(EntityDamageByEntityEvent e) {
+        try {
+            this.handleEntityDamage(e);
+        }
+        catch (Exception ignore) {}
+    }
+
+    @EventHandler
+    private void onEntityDamage(EntityDamageEvent e) {
+        try {
+            this.handleEntityDamage(e);
+        }
+        catch (Exception ignore) {}
+    }
+
+    private void handleEntityDamage(EntityDamageEvent e) {
+        Entity ent = e.getEntity();
+        World world = ent.getWorld();
+        ExplosionConfig config = ExplosionConfig.load(world);
+        EntityDamageEvent.DamageCause cause = e.getCause();
+
+        if (cause == EntityDamageEvent.DamageCause.BLOCK_EXPLOSION) {
+            e.setCancelled(config.getBlockMode() == Mode.NONE);
+        }
+        else if (e instanceof EntityDamageByEntityEvent de) {
+            Entity damager = de.getDamager();
+
+            switch (damager.getType()) {
+                case CREEPER -> e.setCancelled(config.getCreeperMode() == Mode.NONE);
+                case MINECART_TNT -> e.setCancelled(config.getMinecartMode() == Mode.NONE);
+                case FIREBALL -> e.setCancelled(config.getFireballMode() == Mode.NONE);
+                case WITHER_SKULL -> e.setCancelled(config.getWitherMode() == Mode.NONE);
+                case PRIMED_TNT -> e.setCancelled(config.getTntMode() == Mode.NONE);
+                case ENDER_CRYSTAL -> e.setCancelled(config.getCrystalMode() == Mode.NONE);
+            }
+        }
     }
 
     private void handleEntityExplosion(EntityExplodeEvent e) {
@@ -78,7 +119,7 @@ public class ExplosionListener implements Listener {
     private void dynamicExplode(Location center, List<Block> blocks) {
         for (Block block : blocks) {
             Location loc = block.getLocation();
-            Vector dir = loc.toVector().subtract(center.toVector()).normalize().multiply(2).add(new Vector(0, 1, 0));
+            Vector dir = loc.toVector().subtract(center.toVector()).normalize().add(new Vector(0, 1, 0));
             FallingBlock fb = loc.getWorld().spawnFallingBlock(loc.add(0.5, 0.5, 0.5), block.getBlockData());
             fb.setVelocity(dir);
         }
