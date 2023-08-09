@@ -7,7 +7,6 @@ import io.github.itzispyder.explosionscontrol.utils.Text;
 import io.github.itzispyder.explosionscontrol.utils.Timer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabExecutor;
 
 import java.util.ArrayList;
 import java.util.List;
