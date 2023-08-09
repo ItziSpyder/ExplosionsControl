@@ -3,12 +3,12 @@ Control the explosions in your Minecraft server! Configurations are separate for
 --------------------------------------------------------------------------
 ```yaml
 commands:
-  explosions:
-    description: Opens up the explosions toggle menu
-    usage: /explosions
-    permission: explosionscontrol.commands.explosions
-  loadworlds:
-    description: Loads in all the configuration files in case they didn't load
-    usage: /loadworlds
-    permission: explosionscontrol.commands.loadworlds
+  updateworlds:
+    description: Update all world explosion configs
+    usage: /updateworlds
+    permission: exc.commands.updateworlds
+  configworld:
+    description: Config world explosion configs
+    usage: /configworld <world>
+    permission: exc.commands.configworld
 ```
