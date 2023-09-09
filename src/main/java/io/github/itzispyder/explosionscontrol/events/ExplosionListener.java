@@ -1,5 +1,6 @@
 package io.github.itzispyder.explosionscontrol.events;
 
+import io.github.itzispyder.explosionscontrol.ExplosionsControl;
 import io.github.itzispyder.explosionscontrol.data.ExplosionConfig;
 import io.github.itzispyder.explosionscontrol.data.Mode;
 import io.github.itzispyder.explosionscontrol.utils.SoundPlayer;
@@ -46,6 +47,10 @@ public class ExplosionListener implements Listener {
         catch (Exception ignore) {}
     }
 
+    private boolean isOOB(Location loc) {
+        return ExplosionsControl.config.isOOB(loc.getBlockY());
+    }
+
     @EventHandler
     private void onEntityDamage(EntityDamageEvent e) {
         try {
@@ -59,6 +64,10 @@ public class ExplosionListener implements Listener {
         World world = ent.getWorld();
         ExplosionConfig config = ExplosionConfig.load(world);
         EntityDamageEvent.DamageCause cause = e.getCause();
+
+        if (isOOB(ent.getLocation())) {
+            return;
+        }
 
         if (cause == EntityDamageEvent.DamageCause.BLOCK_EXPLOSION) {
             e.setCancelled(config.getBlockMode() == Mode.NONE);
@@ -82,6 +91,10 @@ public class ExplosionListener implements Listener {
         World world = ent.getWorld();
         ExplosionConfig config = ExplosionConfig.load(world);
 
+        if (isOOB(ent.getLocation())) {
+            return;
+        }
+
         switch (ent.getType()) {
             case CREEPER -> determineOutcome(config.getCreeperMode(), e);
             case MINECART_TNT -> determineOutcome(config.getMinecartMode(), e);
@@ -96,6 +109,10 @@ public class ExplosionListener implements Listener {
         Block block = e.getBlock();
         World world = block.getWorld();
         ExplosionConfig config = ExplosionConfig.load(world);
+
+        if (isOOB(block.getLocation())) {
+            return;
+        }
 
         determineOutcome(config.getBlockMode(), e);
     }

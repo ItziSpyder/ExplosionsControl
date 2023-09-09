@@ -4,6 +4,8 @@ import io.github.itzispyder.explosionscontrol.commands.BukkitCommand;
 import io.github.itzispyder.explosionscontrol.commands.commands.ConfigWorldCommand;
 import io.github.itzispyder.explosionscontrol.commands.commands.UpdateWorldsCommand;
 import io.github.itzispyder.explosionscontrol.data.ExplosionConfig;
+import io.github.itzispyder.explosionscontrol.data.JsonSerializable;
+import io.github.itzispyder.explosionscontrol.data.PluginConfig;
 import io.github.itzispyder.explosionscontrol.events.ExplosionListener;
 import io.github.itzispyder.explosionscontrol.events.InventoryListener;
 import io.github.itzispyder.explosionscontrol.utils.Text;
@@ -18,6 +20,7 @@ public final class ExplosionsControl extends JavaPlugin {
     public static final Logger logger = Bukkit.getLogger();
     public static final PluginManager pm = Bukkit.getPluginManager();
     public static final String starter = Text.color("&7[&6Ex&eC&7]&r ");
+    public static final PluginConfig config = JsonSerializable.load(PluginConfig.PATH, PluginConfig.class, new PluginConfig());
     public static ExplosionsControl instance;
 
     @Override
@@ -25,6 +28,7 @@ public final class ExplosionsControl extends JavaPlugin {
         instance = this;
         this.init();
         ExplosionConfig.updateAllWorlds();
+        config.save();
     }
 
     @Override
