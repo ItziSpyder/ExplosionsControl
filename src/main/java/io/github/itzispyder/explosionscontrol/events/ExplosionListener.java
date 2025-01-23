@@ -77,11 +77,11 @@ public class ExplosionListener implements Listener {
 
             switch (damager.getType()) {
                 case CREEPER -> e.setCancelled(config.getCreeperMode() == Mode.NONE);
-                case MINECART_TNT -> e.setCancelled(config.getMinecartMode() == Mode.NONE);
+                case TNT_MINECART -> e.setCancelled(config.getMinecartMode() == Mode.NONE);
                 case FIREBALL -> e.setCancelled(config.getFireballMode() == Mode.NONE);
                 case WITHER_SKULL -> e.setCancelled(config.getWitherMode() == Mode.NONE);
-                case PRIMED_TNT -> e.setCancelled(config.getTntMode() == Mode.NONE);
-                case ENDER_CRYSTAL -> e.setCancelled(config.getCrystalMode() == Mode.NONE);
+                case TNT -> e.setCancelled(config.getTntMode() == Mode.NONE);
+                case END_CRYSTAL -> e.setCancelled(config.getCrystalMode() == Mode.NONE);
             }
         }
     }
@@ -97,11 +97,11 @@ public class ExplosionListener implements Listener {
 
         switch (ent.getType()) {
             case CREEPER -> determineOutcome(config.getCreeperMode(), e);
-            case MINECART_TNT -> determineOutcome(config.getMinecartMode(), e);
+            case TNT_MINECART -> determineOutcome(config.getMinecartMode(), e);
             case FIREBALL -> determineOutcome(config.getFireballMode(), e);
             case WITHER_SKULL -> determineOutcome(config.getWitherMode(), e);
-            case PRIMED_TNT -> determineOutcome(config.getTntMode(), e);
-            case ENDER_CRYSTAL -> determineOutcome(config.getCrystalMode(), e);
+            case TNT -> determineOutcome(config.getTntMode(), e);
+            case END_CRYSTAL -> determineOutcome(config.getCrystalMode(), e);
         }
     }
 
@@ -145,6 +145,6 @@ public class ExplosionListener implements Listener {
     private void fakeExplode(Location center) {
         SoundPlayer sound = new SoundPlayer(center, Sound.ENTITY_GENERIC_EXPLODE, 10.0F, 0.7F);
         sound.playWithin(100.0);
-        center.getWorld().spawnParticle(Particle.EXPLOSION_HUGE, center, 1, 0, 0, 0, 0);
+        center.getWorld().spawnParticle(Particle.EXPLOSION_EMITTER, center, 1, 0, 0, 0, 0);
     }
 }

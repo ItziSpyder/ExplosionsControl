@@ -1,5 +1,5 @@
 name: ExplosionsControl
-version: '1.19.4'
+version: '1.21.4'
 main: io.github.itzispyder.explosionscontrol.ExplosionsControl
 api-version: 1.19
 authors: [ ImproperIssues ]
