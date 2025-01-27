@@ -21,7 +21,7 @@ dependencies {
     compileOnly "org.spigotmc:spigot-api:${project.mc_version}-R0.1-SNAPSHOT"
 }
 
-def targetJavaVersion = 16
+def targetJavaVersion = 21
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     sourceCompatibility = javaVersion
